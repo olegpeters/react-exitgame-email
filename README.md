@@ -1115,7 +1115,7 @@ Different projects choose different testing tradeoffs based on how often compone
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from EmailApp;
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -1334,7 +1334,7 @@ For an example, a simple button component could have following states:
 
 Usually, it’s hard to see these states without running a sample app or some examples.
 
-Create React App doesn’t include any tools for this by default, but you can easily add [React Storybook](https://github.com/kadirahq/react-storybook) to your project. **It is a third-party tool that lets you develop components and see all their states in isolation from your app**.
+Create ReactEmailAppp doesn’t include any tools for this by default, but you can easily add [React Storybook](https://github.com/kadirahq/react-storybook) to your project. **It is a third-party tool that lets you develop components and see all their states in isolation from your app**.
 
 ![React Storybook Demo](http://i.imgur.com/7CIAWpB.gif)
 

@@ -1,15 +1,64 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import {browserHistory} from "react-router";
 
-class App extends React.Component {
-  render(){
-    return (
-      <div>
-        <NavBar title="React Gmail Style client" user="vadillo.jon@gmail.com" />
-        <MainContainer />
-      </div>
-    )
+class EmailApp extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {}
+        this.fetchEmails(props);
+    }
+
+    fetchEmails(props) {
+        function mailRetrievalFailed(req) {
+            props.browserHistory.push("");
+            console.log('request has expired');
+            req.abort();
+        }
+
+        const search = props.location.search; // could be '?token=abc'
+        const params = new URLSearchParams(search);
+        const token = params.get('token');
+        if(token) {
+
+            console.log(token)
+
+            let onfulfilled = (response) => {
+                if(response.ok) {
+                    console.log("FETCH SUCCESSFUL");
+                    response.json().then(data => {
+                        this.setState({
+                            emails: data
+                        });
+                    });
+                } else {
+                    browserHistory.push("");
+                }
+            };
+            fetch('/api/mails?token='+token).then(onfulfilled.bind(this)).catch((error) => {
+                this.setState({errors: "Wrong restore data"});
+            });
+        } else {
+            browserHistory.push("");
+        }
+    }
+
+    render(){
+        let navBar = <NavBar title="SecureMail" user="vadillo.jon@gmail.com" />;
+
+        console.log(this.state);
+        if(this.state && this.state.emails) {
+            console.log("MAILS");
+            console.log(this.state.emails);
+          return (
+              <div>
+                  {navBar}
+                <MainContainer emails={this.state.emails}/>
+              </div>
+          )
+        }
+        return navBar;
   }
 }
 
@@ -21,56 +70,53 @@ class NavBar extends React.Component {
   render() {
     //For the purpose of this exampel, the NavBar has no interation and is just JSX.
     return (
-      <nav className="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-        <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-        </button>
-        <img className="nav-logo" src="https://facebook.github.io/react/img/logo.svg" width="36" height="36" />
-        <a className="navbar-brand" href="#">{this.props.title}</a>
+      <nav className="navbar navbar-toggleable-md navbar-inverse border-bottom">
+        <img className="nav-logo" src="../public/SecureMail.jpg" height="36" />
+        <a className="navbar-brand">{this.props.title}</a>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        
+
         <ul className="navbar-nav ml-auto">
-          
+
           <li className="nav-item active">
-          <a className="nav-link" href="#">&nbsp;<i className="fa fa-calendar" aria-hidden="true"></i>&nbsp;</a>
+          <a className="nav-link" href="">&nbsp;<i className="fa fa-calendar" aria-hidden="true"></i>&nbsp;</a>
           </li>
           <li className="nav-item active">
-          <a className="nav-link" href="#">&nbsp;<i className="fa fa-th" aria-hidden="true"></i>&nbsp;</a>
+          <a className="nav-link" href="">&nbsp;<i className="fa fa-th" aria-hidden="true"></i>&nbsp;</a>
           </li>
           <li className="nav-item active">
-          <a className="nav-link" href="#">{this.props.user} <span className="sr-only">(current)</span><i className="fa fa-angle-down" aria-hidden="true"></i></a>
+          <a className="nav-link" href="">{this.props.user} <span className="sr-only">(current)</span><i className="fa fa-angle-down" aria-hidden="true"></i></a>
           </li>
         </ul>
         </div>
       </nav>
-    ) 
+    )
   }
 }
 
 class EmailLabels extends React.Component {
-  
+
   static defaultProps = {
     //Labels will be static for this example.
     labels: [{
       id : 1,
       name: 'Inbox',
-      emailNumber : 4
+      emailNumber : 0
     },{
       id : 2,
-      name: 'Important',
-      emailNumber : 2
+      name: 'Drafts',
+      emailNumber : 1
     },{
       id : 3,
       name: 'Sent',
-      emailNumber : 9
+      emailNumber : 0
     },{
       id : 4,
       name: 'Trash',
-      emailNumber : 12
+      emailNumber : 0
     }]
   }; //Babel v6.4 Requires semicolons after class properties
-  
+
   render() {
     return (
       <ul className="list-group">
@@ -88,13 +134,13 @@ class EmailLabels extends React.Component {
 }
 
 class LabelItem extends React.Component {
-  
+
   handleClick(){
     console.log('handleClick '+this.props.id);
     this.props.onClick(this.props.id);
   }
-  
-  render(){ 
+
+  render(){
     return (
         <li className="list-group-item justify-content-between" onClick={this.handleClick.bind(this)}>
           {this.props.label.name}
@@ -117,10 +163,10 @@ class Tab extends React.Component {
       tabClasses.push("active");
       console.log("active");
     }
-    
+
     return (
         <li className="nav-item">
-            <a className={tabClasses.join(' ')} href="#">
+            <a className={tabClasses.join(' ')} href="">
               <i className={iconClasses.join(' ')}></i>&nbsp;&nbsp;{this.props.name}
             </a>
         </li>
@@ -129,7 +175,7 @@ class Tab extends React.Component {
 }
 
 class EmailList extends React.Component {
-  
+
   handleEmailClick = (id) => {
     alert('Clicked'+id);
   };
@@ -159,12 +205,12 @@ class EmailList extends React.Component {
 }
 
 class EmailItem extends React.Component {
-  
+
   handleEmailClick() {
     //Call to the parent's method passed through properties.
     this.props.handleEmailClick(this.props.email.id);
   }
-  
+
   render(){
     return (
       <li className="list-group-item d-flex justify-content-start" onClick={this.handleEmailClick.bind(this)}>
@@ -173,21 +219,21 @@ class EmailItem extends React.Component {
           </div>
 
           &nbsp;&nbsp;<span className="fa fa-star-o"></span>&nbsp;&nbsp;
-          <span className="name">{this.props.email.from}</span> 
+          <span className="name">{this.props.email.from}</span>
           <span>{this.props.email.subject}</span>
-          
+
           <span className="ml-auto p-2">
             <span className="fa fa-paperclip">&nbsp;&nbsp;</span>
             <span className="badge badge-default badge-pill">{this.props.email.time}</span>
           </span>
         </li>
-        
+
     )
   }
 }
 
 class EmptyBox extends React.Component {
-  
+
   render(){
     return (
       <p className="center">The email box is empty.</p>
@@ -199,80 +245,32 @@ class EmptyBox extends React.Component {
  * Main class which contains the labels and the email list.
  */
 class MainContainer extends React.Component {
-  
+
   constructor(props){
     super(props);
     this.state = {
       selectedLabel : 1
     }
   }
-  
+
   handleLabelClick(labelId){
     console.log('Label clicked: '+labelId);
     this.setState({
       selectedLabel: labelId
     });
   }
-  
-  static defaultProps = {
-    //Emails to be displayed on the Email List
-    emails : [
-      {
-        id: 0,
-        labelId: 1,
-        from: 'Mike James',
-        subject: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        time: "11:15"
-      },
-      {
-        id: 1,
-        labelId: 1,
-        from: 'Emma Thompson',
-        subject: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        time: "22:08"
-      },
-      {
-        id: 2,
-        labelId: 1,
-        from: 'Olivia Jefferson',
-        subject: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        time: "19:12"
-      },
-      {
-        id: 3,
-        labelId: 1,
-        from: 'Mike Conley',
-        subject: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        time: "18:35"
-      },
-      {
-        id: 4,
-        labelId: 2,
-        from: 'Emily Iverson',
-        subject: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        time: "14:05"
-      },
-      {
-        id: 5,
-        labelId: 3,
-        from: 'Michael Neal',
-        subject: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        time: "14:05"
-      }
-    ]
-  };
 
   render() {
-    console.log(this.props.emails[0].labelId);
+    console.log("MAIN CONTAINER" + this.props.emails[0].labelId);
     const filteredEmails = this.props.emails.filter(e => e.labelId & e.labelId == this.state.selectedLabel);
-    
+
     let content = null;
     if(filteredEmails.length > 0){
        content = <EmailList emails={filteredEmails} />;
     } else {
        content = <EmptyBox />;
     }
-    
+
     return (
       <div className="container">
         <ActionsRow />
@@ -280,9 +278,9 @@ class MainContainer extends React.Component {
         <div className="row">
           <div className="col-12 col-sm-12 col-md-3 col-lg-2">
             <EmailLabels onLabelClick={this.handleLabelClick.bind(this)} />
-          </div> 
+          </div>
           <div className="col-12 col-sm-12 col-md-9 col-lg-10">
-            {content}        
+            {content}
           </div>
         </div>
       </div>
@@ -294,13 +292,13 @@ class MainContainer extends React.Component {
  * Come options for showing how to emulate Gmail using Bootsrap 4.
  */
 class ActionsRow extends React.Component {
-  
+
   render(){
     return (
-    
-      <div className="row"> 
+
+      <div className="row">
         <div className="col-12 col-sm-12 col-md-3 col-lg-2">
-          <a href="#" className="btn btn-danger btn-primary btn-block">
+          <a href="" className="btn btn-danger btn-primary btn-block">
             <i className="fa fa-edit"></i> Compose
           </a>
         </div>
@@ -314,11 +312,11 @@ class ActionsRow extends React.Component {
               More
             </button>
             <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
-              <a className="dropdown-item" href="#">Action</a>
-              <a className="dropdown-item" href="#">Another action</a>
-              <a className="dropdown-item" href="#">Something else here</a>
+              <a className="dropdown-item" href="">Action</a>
+              <a className="dropdown-item" href="">Another action</a>
+              <a className="dropdown-item" href="">Something else here</a>
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="#">Separated link</a>
+              <a className="dropdown-item" href="">Separated link</a>
             </div>
           </div>
       
@@ -332,4 +330,4 @@ class ActionsRow extends React.Component {
   } 
 }
 
-export default App;
+export default EmailApp;
