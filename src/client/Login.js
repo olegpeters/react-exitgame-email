@@ -1,6 +1,7 @@
 import React from "react";
 import './login.css';
 import {Link} from "react-router-dom";
+import ReactImage from "./SecureMail.jpg";
 
 export class LoginForm extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ export class LoginForm extends React.Component {
         <div className="wrapper">
             <div id="formContent">
                 <div className="fadeIn first pt-5">
-                    <img src="../public/SecureMail.jpg" id="icon" alt="SecureMail"/>
+                    <img src={ReactImage} id="icon" alt="SecureMail"/>
                     <h1>SecureMail</h1><br/> The most secure e-mail service in the world
                 </div>
                 <h2>Login</h2>

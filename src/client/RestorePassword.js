@@ -2,6 +2,7 @@ import React from "react";
 import './login.css';
 import {browserHistory, Redirect} from "react-router";
 import {withRouter} from "react-router-dom";
+import ReactImage from "./SecureMail.jpg";
 
 class RestorePasswordScreen extends React.Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class RestorePasswordScreen extends React.Component {
                 <div className="login">
                     <div className="wrapper fadeInDown">
                         <div id="formContent">
-                            <img src="../public/SecureMail.jpg" height="45" alt="SecureMail" className="mt-5"/><br/>
+                            <img src={ReactImage} height="45" alt="SecureMail" className="mt-5"/><br/>
                             <h2>Restore your login</h2>
                             <form onSubmit={this.handleSubmit}>
                                 <input
