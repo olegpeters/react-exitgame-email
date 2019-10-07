@@ -249,7 +249,7 @@ class EmailItem extends React.Component {
         <span className={"font-italic"}>{this.props.email.subject}</span>
 
         <span className="ml-auto p-2">
-            <span className="fa fa-paperclip">&nbsp;&nbsp;</span>
+          {this.props.email.hasAttachment ? <span className="fa fa-paperclip">&nbsp;&nbsp;</span> : ""}
             <span className="badge badge-default badge-pill">{this.props.email.time}</span>
           </span>
       </li>

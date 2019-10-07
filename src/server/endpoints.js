@@ -37,6 +37,7 @@ let emails = [
     from: 'Michael Neal',
     subject: '',
     text: '<video width="860" height="620" controls><source src="/Kofferraum.mp4" type="video/mp4">Your browser does not support the video tag. </video>',
+    hasAttachment: true,
     time: "14:05"
   }
 ];
