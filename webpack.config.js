@@ -38,7 +38,7 @@ module.exports = {
     port: 3000,
     open: true,
     proxy: {
-      '/api': 'http://localhost:80'
+      '/api': 'http://localhost:5000'
     },
     historyApiFallback: true,
   },
