@@ -8,9 +8,9 @@ class RestorePasswordScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "inkognito@securemail.com",
-            birthdate: "01.01.1970",
-            pet: "Cat",
+            email: "marvin.doe@securemail.me",
+            birthdate: "25.03.1993",
+            pet: "Mario",
             city: "Paris",
             errors: "",
             token: ""
@@ -37,12 +37,12 @@ class RestorePasswordScreen extends React.Component {
                                     value={email}
                                     onChange={this.handleChange}
                                 />
-                                <div className={"pt-3"}><h6>Your favourite pet</h6>
+                                <div className={"pt-3"}><h6>Your favourite pet's Name'</h6>
                                     <input
                                         className="fadeIn third"
                                         name="pet"
                                         type="text"
-                                        placeholder="e.g. Dog"
+                                        placeholder="e.g. Luigi"
                                         value={pet}
                                         onChange={this.handleChange}
                                     /></div>
