@@ -103,7 +103,7 @@ class EmailLabels extends React.Component {
     labels: [{
       id: 1,
       name: 'Inbox',
-      emailNumber: 4
+      emailNumber: 6
     }, {
       id: 2,
       name: 'Drafts',
@@ -111,7 +111,7 @@ class EmailLabels extends React.Component {
     }, {
       id: 3,
       name: 'Sent',
-      emailNumber: 0
+      emailNumber: 2
     }, {
       id: 4,
       name: 'Trash',
@@ -215,7 +215,7 @@ class EmailPreview extends React.Component {
       return (
         <div className="card">
           <div className="card-header">
-            {this.props.email.from}
+            {this.props.email.from} &lt;{this.props.email.frommail}&gt;
             <span className={"pull-right"}>{this.props.email.time}</span>
           </div>
           <div className="card-body">
