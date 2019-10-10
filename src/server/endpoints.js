@@ -428,7 +428,7 @@ let emails = [
     from: 'Marvin',
     frommail: 'marvin.doe@securemail.me',
     subject: 'HILFE',
-    text: `sie haben mich!! <br> PS: ohne GAMEON geht jetzt gar nichts mehr weiter <br><video width="860" height="620" controls><source src="/Kofferraum.mp4" type="video/mp4">Your browser does not support the video tag. </video>
+    text: `sie haben mich!! <br><br><strong> hilf mir! öffne die Kryptex mit folgendem Passwort:<br> </strong></p><h3><em>GAMEON</em></h3><video width="860" height="500" controls><source src="/Kofferraum.mp4" type="video/mp4">Your browser does not support the video tag. </video>
    `,
     hasAttachment: true,
     time: "14:05"

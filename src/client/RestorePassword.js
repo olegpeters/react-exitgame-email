@@ -8,10 +8,10 @@ class RestorePasswordScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "marvin.doe@securemail.me",
-            birthdate: "25.03.1993",
-            pet: "Mario",
-            city: "Paris",
+            email: "",
+            birthdate: "",
+            pet: "",
+            city: "",
             errors: "",
             token: ""
         };
@@ -33,6 +33,7 @@ class RestorePasswordScreen extends React.Component {
                                     className="fadeIn second"
                                     name="email"
                                     type="text"
+                                    autoComplete="off"
                                     placeholder="Enter your email"
                                     value={email}
                                     onChange={this.handleChange}
@@ -42,6 +43,7 @@ class RestorePasswordScreen extends React.Component {
                                         className="fadeIn third"
                                         name="pet"
                                         type="text"
+                                        autoComplete="off"
                                         placeholder="e.g. Luigi"
                                         value={pet}
                                         onChange={this.handleChange}
@@ -51,7 +53,8 @@ class RestorePasswordScreen extends React.Component {
                                     className="fadeIn third"
                                     name="birthdate"
                                     type="text"
-                                    placeholder="e.g. 01/01/1970"
+                                    autoComplete="off"
+                                    placeholder="e.g. 01.01.1970"
                                     value={birthdate}
                                     onChange={this.handleChange}
                                 />
@@ -60,6 +63,7 @@ class RestorePasswordScreen extends React.Component {
                                     className="fadeIn third"
                                     name="city"
                                     type="text"
+                                    autoComplete="off"
                                     placeholder="e.g. New York"
                                     value={city}
                                     onChange={this.handleChange}
