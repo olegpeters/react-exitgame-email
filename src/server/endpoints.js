@@ -322,7 +322,7 @@ let emails = [
     subject: 'Aw: Mach keine Dummheiten',
         text: `
             Hören Sie auf mich zu kontaktieren. Ich gebe keinen Code raus. Der Standort des Backups nützt Ihnen gar nichts, es ist unmöglich Zugriff auf die Daten zu erlangen.<br>
-            Der Rollcontainer ist durch ein mehrstufiges Sicherheitssystem geschützt. Der Schlüssel zum Container befindet sich in meinem Black Kryptex mit 26^6 Kombinationen. Das Passwort für das Kryptex kriegen Sie nie raus, da bräuchten Sie Jahre.<br>
+            Der Rollcontainer ist durch ein mehrstufiges Sicherheitssystem geschützt. Der Container lässt sich nicht öffnen ohne mein Black Kryptex mit 26^6 Kombinationen. Das Passwort für das Kryptex kriegen Sie nie raus, da bräuchten Sie Jahre.<br>
             Sie haben ja keine Ahnung was Sie da lostreten. Unsere Operation ist von ganz oben gedeckt.
             <br>Marvin
             <br>
@@ -428,8 +428,8 @@ let emails = [
     from: 'Marvin',
     frommail: 'marvin.doe@securemail.me',
     subject: 'HILFE',
-    text: `sie haben mich!! <video width="860" height="620" controls><source src="/Kofferraum.mp4" type="video/mp4">Your browser does not support the video tag. </video>
-    <br> PS: ohne GAMEON geht jetzt gar nichts mehr weiter`,
+    text: `sie haben mich!! <br> PS: ohne GAMEON geht jetzt gar nichts mehr weiter <br><video width="860" height="620" controls><source src="/Kofferraum.mp4" type="video/mp4">Your browser does not support the video tag. </video>
+   `,
     hasAttachment: true,
     time: "14:05"
   }
