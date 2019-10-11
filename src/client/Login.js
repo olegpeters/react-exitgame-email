@@ -41,7 +41,7 @@ export class LoginForm extends React.Component {
                         onChange={this.handleChange}
                     />
                     {errors && (
-                        <div className="text-white bg-danger my-2 p-3">{errors}</div>
+                        <div className="text-white bg-danger my-2 p-3">{errors} <br/><Link to={'/forgotten'}>Did you forget your password?</Link></div>
                     )}
                     <button className="fadeIn fourth" type="submit">Log In</button>
                 </form>
@@ -64,6 +64,6 @@ export class LoginForm extends React.Component {
 
   handleSubmit = event => {
       event.preventDefault();
-    this.setState({errors: "Wrong login data"});
+    this.setState({errors: "Wrong email or password."});
   };
 }
