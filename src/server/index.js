@@ -4,8 +4,10 @@ var express = require('express'),
   endpoints = require('./endpoints'),
   app = express(),
   cors = require('cors'),
-  path = require('path');
+  path = require('path'),
+  morgan = require('morgan');
 
+app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
